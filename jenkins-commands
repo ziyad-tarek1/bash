@@ -1,0 +1,26 @@
+# running jenkins as a container
+
+docker run -p 8080:8080 -p 5000:5000 -d -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+
+#path where jenkins data presist # the volume to presist the data in the 
+/var/lib/docker/volumes/jenkins_home/_data
+
+# you find the password here
+/var/lib/docker/volumes/jenkins_home/_data/secrets
+
+# 8080 is the port to use the jenkins GUI 
+# 5000 is the port for the jenkins master node comunicate with the worker nodes 
+# the volume to presist the data in the 
+
+
+################## docker plugin inside jenkins container #########################
+# go inside the jenkins container manually but remember to log in as root
+docker exec -it -u 0 8a29201199da741 bash
+
+# to mount the docker runtime inside the container
+docker run -p 8080:8080 -p 5000:5000 -d \
+  -v jenkins_home:/var/jenkins_home  \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v $(which docker):/usr/bin/docker:ro \
+  jenkins/jenkins:lts
+  
