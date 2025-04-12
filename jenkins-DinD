@@ -22,4 +22,4 @@ docker restart jenkins-DinD
 
 # echo debug massage
 echo "Jenkins container setup complete........."
-echo $(cat /var/lib/jenkins/secrets/initialAdminPassword)
+docker exec -u 0 jenkins-DinD bash -c "cat /var/jenkins_home/secrets/initialAdminPassword"
